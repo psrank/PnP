@@ -24,6 +24,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         private List<File> _files = new List<File>();
         private List<Provider> _providers = new List<Provider>();
         private List<Page> _pages = new List<Page>();
+        private List<PublishingPage> _publishingPages = new List<PublishingPage>();
+        private List<PublishingPageLayout> _publishingPageLayouts = new List<PublishingPageLayout>();
         private List<TermGroup> _termGroups = new List<TermGroup>();
         private FileConnectorBase connector;
         private string _id;
@@ -157,6 +159,24 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         {
             get { return this._pages; }
             private set { this._pages = value; }
+        }
+
+        /// <summary>
+        /// Gets a collection of Publishing Pages for the template
+        /// </summary>
+        public List<PublishingPage> PublishingPages
+        {
+            get { return this._publishingPages; }
+            private set { this._publishingPages = value; }
+        }
+
+        /// <summary>
+        /// Gets a collection of Publishing Page Layouts for the template
+        /// </summary>
+        public List<PublishingPageLayout> PublishingPageLayouts
+        {
+            get { return this._publishingPageLayouts; }
+            private set { this._publishingPageLayouts = value; }
         }
 
         /// <summary>

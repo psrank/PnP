@@ -50,6 +50,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
             objectHandlers.Add(new ObjectComposedLook());
             objectHandlers.Add(new ObjectFiles());
             objectHandlers.Add(new ObjectPages());
+            objectHandlers.Add(new ObjectPublishingPageLayouts());
+            objectHandlers.Add(new ObjectPublishingPages());
             objectHandlers.Add(new ObjectPropertyBagEntry());
             objectHandlers.Add(new ObjectRetrieveTemplateInfo());
 

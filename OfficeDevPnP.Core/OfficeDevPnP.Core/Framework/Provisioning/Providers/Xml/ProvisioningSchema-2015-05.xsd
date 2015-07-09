@@ -350,6 +350,34 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+	  
+	 <xsd:element name="PublishingPages" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The PublishingPages to provision into the target Site through the Provisioning Template, optional element
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Page" type="pnp:PublishingPage"
+                          minOccurs="1" maxOccurs="unbounded" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+	  
+	  <xsd:element name="PublishingPageLayouts" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The PublishingPages to provision into the target Site through the Provisioning Template, optional element
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Page" type="pnp:PublishingPageLayout"
+                          minOccurs="1" maxOccurs="unbounded" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
 
       <xsd:element name="TermGroups" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
@@ -1227,6 +1255,122 @@
     
   </xsd:complexType>
 
+  
+    <xsd:complexType name="PublishingPage">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Defines a Page element, to describe a page that will be provisioned into the target Site. Because of the Layout attribute, the assumption is made that you're referring/creating a WikiPage.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:all>
+      <xsd:element name="WebParts" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The webparts to add to the page, optional collection of elements
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="WebPart" type="pnp:WikiPageWebPart"
+                         minOccurs="1" maxOccurs="unbounded" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+
+    <xsd:attribute name="Url" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Required: The server relative url of the page, supports tokens
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="Overwrite" type="xsd:boolean" use="optional" default="false">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Optional: if set, overwrites an existing page in the case of a wikipage.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="WelcomePage" type="xsd:boolean" use="optional" default="false">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Defines whether the page should be set as Welcomepage of the web rootfolder
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="PageLayout" type="xsd:string" use="required" default="false">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Defines the Page Layout
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    
+  </xsd:complexType>
+  
+  
+  <xsd:complexType name="PublishingPageLayout">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        Defines a Page element, to describe a page that will be provisioned into the target Site. Because of the Layout attribute, the assumption is made that you're referring/creating a WikiPage.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:all>
+      <xsd:element name="WebParts" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The webparts to add to the page, optional collection of elements
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="WebPart" type="pnp:WikiPageWebPart"
+                         minOccurs="1" maxOccurs="unbounded" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+
+    <xsd:attribute name="Url" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Required: The server relative url of the page, supports tokens
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="Overwrite" type="xsd:boolean" use="optional" default="false">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Optional: if set, overwrites an existing page in the case of a wikipage.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="PublishingAssociatedContentType" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Required: Defines the Associated Content Type
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
+    <xsd:attribute name="ContentType" type="xsd:string" use="optional" default="false">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Defines the Content Type
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    
+  </xsd:complexType>
+  
   <xsd:complexType name="WikiPageWebPart">
     <xsd:annotation>
       <xsd:documentation xml:lang="en">

@@ -337,6 +337,8 @@
     <Compile Include="Framework\Provisioning\Model\Features.cs" />
     <Compile Include="Framework\Provisioning\Model\FieldRef.cs" />
     <Compile Include="Framework\Provisioning\Model\Field.cs" />
+    <Compile Include="Framework\Provisioning\Model\PublishingPage.cs" />
+    <Compile Include="Framework\Provisioning\Model\PublishingPageLayout.cs" />
     <Compile Include="Framework\Provisioning\Model\TermLabel.cs" />
     <Compile Include="Framework\Provisioning\Model\Term.cs" />
     <Compile Include="Framework\Provisioning\Model\TermSet.cs" />
@@ -356,6 +358,8 @@
     <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectComposedLook.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectContentType.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectExtensibilityProviders.cs" />
+    <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectPublishingPageLayouts.cs" />
+    <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectPublishingPages.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectSitePolicy.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectField.cs" />
     <Compile Include="Framework\Provisioning\ObjectHandlers\ObjectRetrieveTemplateInfo.cs" />
@@ -462,6 +466,7 @@
     <EmbeddedResource Include="CoreResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CoreResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

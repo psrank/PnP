@@ -663,6 +663,12 @@
   <data name="Provisioning_ObjectHandlers_Pages" xml:space="preserve">
     <value>Pages</value>
   </data>
+  <data name="Provisioning_ObjectHandlers_PublishingPages" xml:space="preserve">
+    <value>Publishing Pages</value>
+  </data>
+  <data name="Provisioning_ObjectHandlers_PublishingPageLayouts" xml:space="preserve">
+    <value>Publishing Page Layouts</value>
+  </data>
   <data name="Provisioning_ObjectHandlers_PropertyBagEntries" xml:space="preserve">
     <value>Property Bag</value>
   </data>
