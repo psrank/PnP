@@ -22,7 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug\OfficeDevPnP.Core.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\OfficeDevPnP.Core.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\OfficeDevPnP.Core.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\OfficeDevPnP.Core.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug15|AnyCPU'">
@@ -45,7 +45,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug15\OfficeDevPnP.Core.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug15\OfficeDevPnP.Core.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release15|AnyCPU'">
@@ -55,7 +55,7 @@
     <DefineConstants>TRACE;CLIENTSDKV15</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release15\OfficeDevPnP.Core.XML</DocumentationFile>
+    <DocumentationFile>bin\Release15\OfficeDevPnP.Core.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <Choose>

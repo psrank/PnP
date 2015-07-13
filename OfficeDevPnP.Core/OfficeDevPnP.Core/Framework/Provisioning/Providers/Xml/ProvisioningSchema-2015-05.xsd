@@ -350,8 +350,8 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-	  
-	 <xsd:element name="PublishingPages" minOccurs="0" maxOccurs="1">
+
+      <xsd:element name="PublishingPages" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The PublishingPages to provision into the target Site through the Provisioning Template, optional element
@@ -359,13 +359,13 @@
         </xsd:annotation>
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="Page" type="pnp:PublishingPage"
+            <xsd:element name="PublishingPage" type="pnp:PublishingPage"
                           minOccurs="1" maxOccurs="unbounded" />
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-	  
-	  <xsd:element name="PublishingPageLayouts" minOccurs="0" maxOccurs="1">
+
+      <xsd:element name="PublishingPageLayouts" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
             The PublishingPages to provision into the target Site through the Provisioning Template, optional element
@@ -373,7 +373,7 @@
         </xsd:annotation>
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="Page" type="pnp:PublishingPageLayout"
+            <xsd:element name="PublishingPageLayout" type="pnp:PublishingPageLayout"
                           minOccurs="1" maxOccurs="unbounded" />
           </xsd:sequence>
         </xsd:complexType>
@@ -1303,7 +1303,7 @@
       </xsd:annotation>
     </xsd:attribute>
 
-    <xsd:attribute name="PageLayout" type="xsd:string" use="required" default="false">
+    <xsd:attribute name="PageLayout" type="xsd:string" use="required">
       <xsd:annotation>
         <xsd:documentation xml:lang="en">
           Defines the Page Layout
@@ -1337,7 +1337,31 @@
       </xsd:element>
     </xsd:all>
 
+	<xsd:attribute name="SourceFilePath" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Required: The server relative url of the page, supports tokens
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+	
     <xsd:attribute name="Url" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Required: The server relative url of the page, supports tokens
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+	
+	<xsd:attribute name="Title" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Required: The server relative url of the page, supports tokens
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+	
+	<xsd:attribute name="Description" type="xsd:string" use="required">
       <xsd:annotation>
         <xsd:documentation xml:lang="en">
           Required: The server relative url of the page, supports tokens

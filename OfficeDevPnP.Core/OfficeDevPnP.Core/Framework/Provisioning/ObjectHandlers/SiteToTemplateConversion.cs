@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Script.Serialization;
 using System.Xml.Linq;
@@ -39,6 +40,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
 
             List<ObjectHandlerBase> objectHandlers = new List<ObjectHandlerBase>();
 
+            Debugger.Break();
+
             objectHandlers.Add(new ObjectSitePolicy());
             objectHandlers.Add(new ObjectSiteSecurity());
             objectHandlers.Add(new ObjectTermGroups());
@@ -54,6 +57,9 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
             objectHandlers.Add(new ObjectPublishingPages());
             objectHandlers.Add(new ObjectPropertyBagEntry());
             objectHandlers.Add(new ObjectRetrieveTemplateInfo());
+
+            objectHandlers.Add(new ObjectExtensibilityProviders());
+            objectHandlers.Add(new ObjectPersistTemplateInfo());
 
             int step = 1;
 
@@ -102,11 +108,14 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
             objectHandlers.Add(new ObjectLookupFields());
             objectHandlers.Add(new ObjectFiles());
             objectHandlers.Add(new ObjectPages());
+            objectHandlers.Add(new ObjectPublishingPageLayouts());
+            objectHandlers.Add(new ObjectPublishingPages());
             objectHandlers.Add(new ObjectCustomActions());
             objectHandlers.Add(new ObjectComposedLook());
             objectHandlers.Add(new ObjectPropertyBagEntry());
             objectHandlers.Add(new ObjectExtensibilityProviders());
             objectHandlers.Add(new ObjectPersistTemplateInfo());
+
 
             TokenParser.Initialize(web, template);
 

@@ -125,7 +125,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
         {
             if (!_willProvision.HasValue)
             {
-                _willProvision = template.Pages.Any();
+                _willProvision = template.PublishingPages.Any();
             }
             return _willProvision.Value;
         }
