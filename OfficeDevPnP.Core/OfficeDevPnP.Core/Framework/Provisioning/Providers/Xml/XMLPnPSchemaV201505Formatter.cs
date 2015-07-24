@@ -1011,6 +1011,55 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
             }
             #endregion
 
+            #region PublishingPages
+            // Translate Pages, if any
+            if (source.PublishingPages != null)
+            {
+                foreach (var page in source.PublishingPages)
+                {
+
+
+                    result.PublishingPages.Add(new Model.PublishingPage(page.Url, page.Overwrite, new Model.PublishingPageLayout(), // TODO: dorobit
+                        (page.WebParts != null ?
+                            (from wp in page.WebParts
+                             select new Model.WebPart
+                             {
+                                 Title = wp.Title,
+                                 Column = (uint)wp.Column,
+                                 Row = (uint)wp.Row,
+                                 Contents = wp.Contents
+
+                             }).ToList() : null), page.WelcomePage));
+
+                }
+            }
+            #endregion
+
+            #region PublishingPageLayout
+            // Translate Pages, if any
+            if (source.PublishingPageLayouts != null)
+            {
+                foreach (var pageLayout in source.PublishingPageLayouts)
+                {
+
+
+
+                    result.PublishingPageLayouts.Add(new Model.PublishingPageLayout(pageLayout.Url, pageLayout.Overwrite, pageLayout.PublishingAssociatedContentType, pageLayout.ContentType,
+                        (pageLayout.WebParts != null ?
+                            (from wp in pageLayout.WebParts
+                             select new Model.WebPart
+                             {
+                                 Title = wp.Title,
+                                 Column = (uint)wp.Column,
+                                 Row = (uint)wp.Row,
+                                 Contents = wp.Contents
+
+                             }).ToList() : null)));
+
+                }
+            }
+            #endregion
+
             #region Taxonomy
             // Translate Termgroups, if any
             if (source.TermGroups != null)

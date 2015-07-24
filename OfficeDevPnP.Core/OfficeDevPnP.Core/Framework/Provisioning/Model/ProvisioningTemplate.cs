@@ -226,6 +226,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                 this.SitePolicy,
                 this.Version,
                 this.Pages.Aggregate(0, (acc, next) => acc += next.GetHashCode()),
+                this.PublishingPages.Aggregate(0, (acc, next) => acc += next.GetHashCode()),
+                this.PublishingPageLayouts.Aggregate(0, (acc, next) => acc += next.GetHashCode()),
                 this.TermGroups.Aggregate(0, (acc, next) => acc += next.GetHashCode())
                 ).GetHashCode());
         }
@@ -261,6 +263,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                 this.SitePolicy == other.SitePolicy &&
                 this.Version == other.Version &&
                 this.Pages.DeepEquals(other.Pages) &&
+                this.PublishingPages.DeepEquals(other.PublishingPages) &&
+                this.PublishingPageLayouts.DeepEquals(other.PublishingPageLayouts) &&
                 this.TermGroups.DeepEquals(other.TermGroups)
             );
         }
