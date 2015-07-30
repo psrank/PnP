@@ -28,9 +28,9 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                 context.ExecuteQueryRetry();
             }
 
-            foreach (var page in template.Pages)
+            foreach (var page in template.PublishingPages)
             {
-                var url = page.Url.ToParsedString();
+                var url = String.Format("{0}/Pages/{1}.aspx", web.ServerRelativeUrl, page.PageName);
 
 
                 if (!url.ToLower().StartsWith(web.ServerRelativeUrl.ToLower()))
@@ -54,20 +54,26 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                         exists = false;
                     }
                 }
+
                 if (exists)
                 {
                     if (page.Overwrite)
                     {
                         file.DeleteObject();
                         web.Context.ExecuteQueryRetry();
-                        web.AddWikiPageByUrl(url);
-                        web.AddLayoutToWikiPage(page.Layout, url);
+                        web.AddPublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Publish);
                     }
+
+                    //if (file.CheckOutType == CheckOutType.None)
+                    //{
+                    //    file.CheckOut();
+                    //}
                 }
                 else
                 {
-                    web.AddWikiPageByUrl(url);
-                    web.AddLayoutToWikiPage(page.Layout, url);
+                    web.AddPublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Publish);
+
+                    
                 }
 
                 if (page.WelcomePage)
@@ -82,8 +88,22 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                     web.SetHomePage(rootFolderRelativeUrl);
                 }
 
+                // Check out the file if needed
+                
+                
+                
+
                 if (page.WebParts != null & page.WebParts.Any())
                 {
+                    if (!exists)
+                    {
+                        file = web.GetFileByServerRelativeUrl(url);
+                        web.Context.Load(file);
+                        web.Context.ExecuteQuery();
+                    }
+                    file.CheckOut();    
+                                    
+
                     var existingWebParts = web.GetWebParts(url);
 
                     foreach (var webpart in page.WebParts)
@@ -92,10 +112,28 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                         {
                             WebPartEntity wpEntity = new WebPartEntity();
                             wpEntity.WebPartTitle = webpart.Title;
-                            wpEntity.WebPartXml = webpart.Contents.ToParsedString().Trim(new[] {'\n', ' '});
-                            web.AddWebPartToWikiPage(url, wpEntity, (int)webpart.Row, (int)webpart.Column, false);
+                            wpEntity.WebPartIndex = (int)webpart.Order;
+                            wpEntity.WebPartZone = webpart.Zone;
+
+                            if (!string.IsNullOrWhiteSpace(webpart.ListUrl))
+                            {
+                                var list = web.GetListByUrl(webpart.ListUrl);
+
+                                var contents = String.Format(webpart.Contents, list.Id, list.Title);
+                                wpEntity.WebPartXml = contents.Trim(new[] { '\n', ' ' });
+                            }
+                            else
+                            {
+                                wpEntity.WebPartXml = webpart.Contents.ToParsedString().Trim(new[] { '\n', ' ' });
+                            }
+
+                            //wpEntity.WebPartXml = webpart.Contents.ToParsedString().Trim(new[] {'\n', ' '});
+                            web.AddWebPartToWebPartPage(url, wpEntity);
                         }
                     }
+
+                    file.CheckIn("", CheckinType.MajorCheckIn);
+                    file.Publish("");
                 }
             }
         }

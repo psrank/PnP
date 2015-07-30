@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 {
@@ -36,8 +37,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         #region Constructors
         public PublishingPageLayout() { }
 
-        public PublishingPageLayout(string url, bool overwrite, string publishingAssociatedContentType, string contentType, IEnumerable<WebPart> webParts)
+        public PublishingPageLayout(string sourceFilePath, string title, string url, bool overwrite, string publishingAssociatedContentType, string contentType, IEnumerable<WebPart> webParts)
         {
+            this.SourceFilePath = sourceFilePath;
+            this.Title = title;
             this.Url = url;
             this.Overwrite = overwrite;
             this.PublishingAssociatedContentType = publishingAssociatedContentType;

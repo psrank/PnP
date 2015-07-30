@@ -16,6 +16,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public string Zone { get; set; }
 
         public uint Order { get; set; }
+
+        public string ListUrl { get; set; }
         #endregion
 
         #region Comparison code

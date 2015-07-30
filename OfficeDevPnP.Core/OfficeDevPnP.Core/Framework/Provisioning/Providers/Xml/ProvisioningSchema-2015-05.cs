@@ -2495,7 +2495,9 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
         private WebPartPageWebPart[] webPartsField;
         
         private string srcField;
-        
+
+        private string localPathField;
+
         private string folderField;
         
         private bool overwriteField;
@@ -2536,7 +2538,21 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
                 this.srcField = value;
             }
         }
-        
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string LocalPath
+        {
+            get
+            {
+                return this.localPathField;
+            }
+            set
+            {
+                this.localPathField = value;
+            }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string Folder {
@@ -2576,7 +2592,9 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
         private string zoneField;
         
         private int orderField;
-        
+
+        private string listUrlField;
+
         /// <remarks/>
         public string Contents {
             get {
@@ -2617,6 +2635,20 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
             }
             set {
                 this.orderField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string ListUrl
+        {
+            get
+            {
+                return this.listUrlField;
+            }
+            set
+            {
+                this.listUrlField = value;
             }
         }
     }
@@ -2800,25 +2832,48 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.dev.office.com/PnP/2015/05/ProvisioningSchema")]
     public partial class PublishingPage {
+
+        private StringDictionaryItem[] propertiesField;
+
+        private WebPartPageWebPart[] webPartsField;
         
-        private WikiPageWebPart[] webPartsField;
-        
-        private string urlField;
-        
+        private string pageNameField;
+
+        private string pageLayoutNameField;
+
+        private string titleField;
+
+        private string contentField;
+
+        private bool publishField;
+
         private bool overwriteField;
         
         private bool welcomePageField;
         
-        private string pageLayoutField;
         
         public PublishingPage() {
             this.overwriteField = false;
             this.welcomePageField = false;
         }
-        
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Property", IsNullable = false)]
+        public StringDictionaryItem[] Properties
+        {
+            get
+            {
+                return this.propertiesField;
+            }
+            set
+            {
+                this.propertiesField = value;
+            }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("WebPart", IsNullable=false)]
-        public WikiPageWebPart[] WebParts {
+        public WebPartPageWebPart[] WebParts {
             get {
                 return this.webPartsField;
             }
@@ -2829,15 +2884,71 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Url {
+        public string PageName {
             get {
-                return this.urlField;
+                return this.pageNameField;
             }
             set {
-                this.urlField = value;
+                this.pageNameField = value;
             }
         }
-        
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string PageLayoutName
+        {
+            get
+            {
+                return this.pageLayoutNameField;
+            }
+            set
+            {
+                this.pageLayoutNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Title
+        {
+            get
+            {
+                return this.titleField;
+            }
+            set
+            {
+                this.titleField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string Content
+        {
+            get
+            {
+                return this.contentField;
+            }
+            set
+            {
+                this.contentField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Publish
+        {
+            get
+            {
+                return this.publishField;
+            }
+            set
+            {
+                this.publishField = value;
+            }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(false)]
@@ -2862,16 +2973,6 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
             }
         }
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string PageLayout {
-            get {
-                return this.pageLayoutField;
-            }
-            set {
-                this.pageLayoutField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -2882,7 +2983,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.dev.office.com/PnP/2015/05/ProvisioningSchema")]
     public partial class PublishingPageLayout {
         
-        private WikiPageWebPart[] webPartsField;
+        private WebPartPageWebPart[] webPartsField;
         
         private string sourceFilePathField;
         
@@ -2905,7 +3006,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml.V201505 {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("WebPart", IsNullable=false)]
-        public WikiPageWebPart[] WebParts {
+        public WebPartPageWebPart[] WebParts {
             get {
                 return this.webPartsField;
             }

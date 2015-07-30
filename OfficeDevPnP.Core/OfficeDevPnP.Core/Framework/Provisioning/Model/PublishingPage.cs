@@ -10,10 +10,12 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         #endregion
 
         #region Properties
-        public string Url { get; set; }
+        public string PageName { get; set; }
+        public string PageLayoutName { get; set; }
+        public string Title { get; set; }
 
-        public PublishingPageLayout PageLayout { get; set; }
-
+        public string Content { get; set; }
+        public bool Publish { get; set; }
         public bool Overwrite { get; set; }
         public bool WelcomePage { get; set; }
 
@@ -28,11 +30,14 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         #region Constructors
         public PublishingPage() { }
 
-        public PublishingPage(string url, bool overwrite, PublishingPageLayout layout, IEnumerable<WebPart> webParts, bool welcomePage = false)
+        public PublishingPage(string pageName, string pageLayoutName, string title, string content, bool overwrite, IEnumerable<WebPart> webParts, bool publish = true, bool welcomePage = false)
         {
-            this.Url = url;
+            this.PageName = pageName;
             this.Overwrite = overwrite;
-            this.PageLayout = layout;
+            this.PageLayoutName = pageLayoutName;
+            this.Title = title;
+            this.Content = content;            
+            this.Publish = publish;
             this.WelcomePage = welcomePage;
 
             if (webParts != null)
@@ -49,9 +54,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         public override int GetHashCode()
         {
             return (String.Format("{0}|{1}|{2}",
-                this.Url,
+                this.PageName,
                 this.Overwrite,
-                this.PageLayout).GetHashCode());
+                this.Title,
+                this.PageLayoutName).GetHashCode());
         }
 
         public override bool Equals(object obj)
@@ -65,9 +71,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
 
         public bool Equals(PublishingPage other)
         {
-            return (this.Url == other.Url &&
+            return (this.PageName == other.PageName &&
+                this.Title ==  other.Title &&
                 this.Overwrite == other.Overwrite &&
-                this.PageLayout == other.PageLayout);
+                this.PageLayoutName == other.PageLayoutName);
         }
 
         #endregion

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Entities;
 using OfficeDevPnP.Core.Framework.ObjectHandlers;
@@ -38,8 +40,11 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                     url = UrlUtility.Combine(web.ServerRelativeUrl, url);
                 }
 
+                string projectBaseFolder = Path.GetFullPath(string.Format(@"{0}\..\..\", AppDomain.CurrentDomain.BaseDirectory));               
 
-                context.Web.DeployPageLayout(pageLayout.SourceFilePath, pageLayout.Title, pageLayout.Description, pageLayout.PublishingAssociatedContentType, url );
+                string fullFilePath = Path.Combine(projectBaseFolder, pageLayout.SourceFilePath);
+
+                context.Web.DeployPageLayout(fullFilePath, pageLayout.Title, pageLayout.Description, pageLayout.PublishingAssociatedContentType ); //url  TODO: dorobit ak url nepatri do root foldra
 
 
                 //var exists = true;
@@ -73,6 +78,30 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
 
                 //}
 
+                var exists = false;
+                var retryCount = 0;
+                var retryAttempt = 10;
+                Microsoft.SharePoint.Client.File file = null;
+                do
+                {
+                    try
+                    {
+                        file = web.GetFileByServerRelativeUrl(url);
+                        web.Context.Load(file);
+                        web.Context.ExecuteQuery();
+                        exists = true;
+                    }
+                    catch (ServerException ex)
+                    {
+                        if (ex.ServerErrorTypeName == "System.IO.FileNotFoundException")
+                        {
+                            exists = false;
+                            Thread.Sleep(5000);
+                            retryCount++;
+                        }
+                    }
+
+                } while (exists == false && retryCount < retryAttempt);
 
 
                 if (pageLayout.WebParts != null & pageLayout.WebParts.Any())
@@ -85,8 +114,24 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                         {
                             WebPartEntity wpEntity = new WebPartEntity();
                             wpEntity.WebPartTitle = webpart.Title;
-                            wpEntity.WebPartXml = webpart.Contents.ToParsedString().Trim(new[] {'\n', ' '});
+                            wpEntity.WebPartIndex = (int)webpart.Order;
+                            wpEntity.WebPartZone = webpart.Zone;
+
+                            if (!string.IsNullOrWhiteSpace(webpart.ListUrl))
+                            {
+                                var list = web.GetListByUrl(webpart.ListUrl);
+
+                                var contents = String.Format(webpart.Contents, list.Id, list.Title);
+                                wpEntity.WebPartXml = contents.ToParsedString().Trim(new[] { '\n', ' ' });
+                            }
+                            else
+                            {                                
+                                wpEntity.WebPartXml = webpart.Contents.ToParsedString().Trim(new[] { '\n', ' ' });
+                            }
+                    
+                                
                             web.AddWebPartToWebPartPage(url, wpEntity);
+                            
                         }
                     }
                 }

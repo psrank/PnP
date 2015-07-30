@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Configuration;
 using Microsoft.SharePoint.Client;
@@ -53,7 +54,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                     {
                         checkedOut = CheckOutIfNeeded(web, targetFile);
 
-                        using (var stream = template.Connector.GetFileStream(file.Src))
+                        using (var stream = template.Connector.GetFileStream(Path.Combine(file.LocalPath, file.Src)))
                         {
                             targetFile = folder.UploadFile(file.Src, stream, file.Overwrite);
                         }
@@ -65,7 +66,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                 }
                 else
                 {
-                    using (var stream = template.Connector.GetFileStream(file.Src))
+                    var filePath = string.IsNullOrEmpty(file.LocalPath)
+                        ? file.Src
+                        : Path.Combine(file.LocalPath, file.Src);
+                    using (var stream = template.Connector.GetFileStream(filePath))
                     {
                         targetFile = folder.UploadFile(file.Src, stream, file.Overwrite);
                     }

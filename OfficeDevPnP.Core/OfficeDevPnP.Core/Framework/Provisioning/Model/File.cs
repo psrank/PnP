@@ -13,6 +13,8 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         #region Properties
         public string Src { get; set; }
 
+        public string LocalPath { get; set; }
+
         public string Folder { get; set; }
 
         public bool Overwrite { get; set; }
@@ -34,9 +36,10 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
         #region Constructors
         public File() { }
 
-        public File(string src, string folder, bool overwrite, IEnumerable<WebPart> webParts, IDictionary<string,string> properties )
+        public File(string src, string localPath, string folder, bool overwrite, IEnumerable<WebPart> webParts, IDictionary<string,string> properties )
         {
             this.Src = src;
+            this.LocalPath = localPath;
             this.Overwrite = overwrite;
             this.Folder = folder;
             if (webParts != null)

@@ -420,6 +420,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
                      {
                          Overwrite = file.Overwrite,
                          Src = file.Src,
+                         LocalPath = file.LocalPath,
                          Folder = file.Folder,
                          WebParts = file.WebParts.Count > 0 ?
                             (from wp in file.WebParts
@@ -620,7 +621,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
             V201505.ProvisioningTemplate source = null;
 
             // Prepare a variable to hold the resulting ProvisioningTemplate instance
-            Model.ProvisioningTemplate result = new Model.ProvisioningTemplate();
+            Model.ProvisioningTemplate result = new Model.ProvisioningTemplate(this._provider.Connector);
 
             // Determine if we're working on a wrapped SharePointProvisioningTemplate or not
             if (xml.Root.Name == pnp + "Provisioning")
@@ -942,6 +943,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
                 result.Files.AddRange(
                     from file in source.Files
                     select new Model.File(file.Src,
+                        file.LocalPath,
                         file.Folder,
                         file.Overwrite,
                         file.WebParts != null ?
@@ -1019,14 +1021,15 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
                 {
 
 
-                    result.PublishingPages.Add(new Model.PublishingPage(page.Url, page.Overwrite, new Model.PublishingPageLayout(), // TODO: dorobit
+                    result.PublishingPages.Add(new Model.PublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Overwrite,  
                         (page.WebParts != null ?
                             (from wp in page.WebParts
                              select new Model.WebPart
                              {
                                  Title = wp.Title,
-                                 Column = (uint)wp.Column,
-                                 Row = (uint)wp.Row,
+                                 Zone = wp.Zone,
+                                 Order = (uint)wp.Order,
+                                 ListUrl = wp.ListUrl,
                                  Contents = wp.Contents
 
                              }).ToList() : null), page.WelcomePage));
@@ -1041,19 +1044,17 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
             {
                 foreach (var pageLayout in source.PublishingPageLayouts)
                 {
-
-
-
-                    result.PublishingPageLayouts.Add(new Model.PublishingPageLayout(pageLayout.Url, pageLayout.Overwrite, pageLayout.PublishingAssociatedContentType, pageLayout.ContentType,
+                    
+                    result.PublishingPageLayouts.Add(new Model.PublishingPageLayout(pageLayout.SourceFilePath, pageLayout.Title, pageLayout.Url, pageLayout.Overwrite, pageLayout.PublishingAssociatedContentType, pageLayout.ContentType,
                         (pageLayout.WebParts != null ?
                             (from wp in pageLayout.WebParts
                              select new Model.WebPart
                              {
                                  Title = wp.Title,
-                                 Column = (uint)wp.Column,
-                                 Row = (uint)wp.Row,
-                                 Contents = wp.Contents
-
+                                 Zone = wp.Zone,
+                                 Order = (uint)wp.Order,
+                                 Contents = wp.Contents,
+                                 ListUrl = wp.ListUrl
                              }).ToList() : null)));
 
                 }

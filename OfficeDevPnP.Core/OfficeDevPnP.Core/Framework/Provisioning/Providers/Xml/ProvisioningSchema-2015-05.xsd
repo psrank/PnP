@@ -1181,6 +1181,14 @@
       </xsd:annotation>
     </xsd:attribute>
 
+    <xsd:attribute name="LocalPath" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          The Local Path of the File, optional attribute
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+
     <xsd:attribute name="Folder" type="xsd:string" use="required">
       <xsd:annotation>
         <xsd:documentation xml:lang="en">
@@ -1264,6 +1272,23 @@
     </xsd:annotation>
 
     <xsd:all>
+      
+      <xsd:element name="Content" type="xsd:string" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Required: Content of the page
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      
+      <xsd:element name="Properties" type="pnp:FileProperties" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            The File Properties, optional collection of elements
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      
       <xsd:element name="WebParts" minOccurs="0">
         <xsd:annotation>
           <xsd:documentation xml:lang="en">
@@ -1272,20 +1297,36 @@
         </xsd:annotation>
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="WebPart" type="pnp:WikiPageWebPart"
+            <xsd:element name="WebPart" type="pnp:WebPartPageWebPart"
                          minOccurs="1" maxOccurs="unbounded" />
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
     </xsd:all>
 
-    <xsd:attribute name="Url" type="xsd:string" use="required">
+    <xsd:attribute name="PageName" type="xsd:string" use="required">
       <xsd:annotation>
         <xsd:documentation xml:lang="en">
-          Required: The server relative url of the page, supports tokens
+          Required: Page Name of the page without .aspx
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
+
+    <xsd:attribute name="PageLayoutName" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Required: Page Layout Name of the page without .aspx
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
+      <xsd:attribute name="Title" type="xsd:string" use="optional">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Required: Title of the page
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
 
     <xsd:attribute name="Overwrite" type="xsd:boolean" use="optional" default="false">
       <xsd:annotation>
@@ -1295,18 +1336,18 @@
       </xsd:annotation>
     </xsd:attribute>
 
+      <xsd:attribute name="Publish" type="xsd:boolean" use="optional" default="true">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            Optional: if set, publishes the page.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+
     <xsd:attribute name="WelcomePage" type="xsd:boolean" use="optional" default="false">
       <xsd:annotation>
         <xsd:documentation xml:lang="en">
           Defines whether the page should be set as Welcomepage of the web rootfolder
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-
-    <xsd:attribute name="PageLayout" type="xsd:string" use="required">
-      <xsd:annotation>
-        <xsd:documentation xml:lang="en">
-          Defines the Page Layout
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
@@ -1330,7 +1371,7 @@
         </xsd:annotation>
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="WebPart" type="pnp:WikiPageWebPart"
+            <xsd:element name="WebPart" type="pnp:WebPartPageWebPart"
                          minOccurs="1" maxOccurs="unbounded" />
           </xsd:sequence>
         </xsd:complexType>
@@ -1467,6 +1508,13 @@
       <xsd:annotation>
         <xsd:documentation xml:lang="en">
           Required: defines the index of the WebPart in the zone
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="ListUrl" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+          Optional: defines the List Url of a List view web part
         </xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>

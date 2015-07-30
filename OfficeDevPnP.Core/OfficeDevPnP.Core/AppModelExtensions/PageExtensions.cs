@@ -954,7 +954,7 @@ namespace Microsoft.SharePoint.Client
         /// <param name="publish">Should the page be published or not?</param>
         /// <exception cref="System.ArgumentNullException">Thrown when key or pageName is a zero-length string or contains only white space</exception>
         /// <exception cref="System.ArgumentException">Thrown when key or pageName is null</exception>
-        public static void AddPublishingPage(this Web web, string pageName, string pageTemplateName, string title = null, bool publish = false)
+        public static void AddPublishingPage(this Web web, string pageName, string pageTemplateName, string title = null, string content = null, bool publish = false)
         {
             if (string.IsNullOrEmpty(pageName))
             {
@@ -997,6 +997,15 @@ namespace Microsoft.SharePoint.Client
             context.ExecuteQueryRetry();
             ListItem pageItem = page.ListItem;
             pageItem["Title"] = title;
+            if (content != null)
+            {
+                pageItem["PublishingPageContent"] = content;
+                pageItem["MnS_NewsCategory"] = "22a142ba-0b1f-442b-bf0a-9cb6511b8813";//"Local News";
+                pageItem["MnS_NewsPublishLocation"] = "f6f02516-044e-4475-ac43-f32bbac034fc";//"Both";
+                pageItem["CO_NewsPriority"] = "0";
+                pageItem["PublishingPageImage"] = "0";
+                pageItem["PublishingRollupImage"] = "0";
+            }
             pageItem.Update();
 
             web.Context.Load(pageItem, p => p.File.CheckOutType);
