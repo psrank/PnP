@@ -7,6 +7,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
     {
         #region Private Members
         private List<WebPart> _webParts = new List<WebPart>();
+        private Dictionary<string, string> _properties = new Dictionary<string, string>();
         #endregion
 
         #region Properties
@@ -25,12 +26,18 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
             private set { _webParts = value; }
         }
 
+        public Dictionary<string, string> Properties
+        {
+            get { return _properties; }
+            private set { _properties = value; }
+        }
+
         #endregion
 
         #region Constructors
         public PublishingPage() { }
 
-        public PublishingPage(string pageName, string pageLayoutName, string title, string content, bool overwrite, IEnumerable<WebPart> webParts, bool publish = true, bool welcomePage = false)
+        public PublishingPage(string pageName, string pageLayoutName, string title, string content, bool overwrite, IEnumerable<WebPart> webParts, Dictionary<string, string> properties, bool publish = true, bool welcomePage = false)
         {
             this.PageName = pageName;
             this.Overwrite = overwrite;
@@ -43,6 +50,14 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
             if (webParts != null)
             {
                 this.WebParts.AddRange(webParts);
+            }
+
+            if (_properties != null)
+            {
+                foreach (var property in properties)
+                {
+                    this.Properties.Add(property.Key, property.Value);
+                }
             }
         }
 

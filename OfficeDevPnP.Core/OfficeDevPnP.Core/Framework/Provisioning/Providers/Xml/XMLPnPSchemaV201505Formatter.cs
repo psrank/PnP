@@ -1019,8 +1019,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
             {
                 foreach (var page in source.PublishingPages)
                 {
-
-
+                    
                     result.PublishingPages.Add(new Model.PublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Overwrite,  
                         (page.WebParts != null ?
                             (from wp in page.WebParts
@@ -1032,7 +1031,9 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Providers.Xml
                                  ListUrl = wp.ListUrl,
                                  Contents = wp.Contents
 
-                             }).ToList() : null), page.WelcomePage));
+                             }).ToList() : null),
+                        page.Properties != null ? page.Properties.ToDictionary(k => k.Key, v => v.Value) : null,
+                        page.WelcomePage));
 
                 }
             }

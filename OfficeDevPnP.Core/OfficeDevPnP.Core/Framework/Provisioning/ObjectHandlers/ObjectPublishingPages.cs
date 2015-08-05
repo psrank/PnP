@@ -61,7 +61,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                     {
                         file.DeleteObject();
                         web.Context.ExecuteQueryRetry();
-                        web.AddPublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Publish);
+                        web.AddPublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Properties, page.Publish);
                     }
 
                     //if (file.CheckOutType == CheckOutType.None)
@@ -71,7 +71,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers
                 }
                 else
                 {
-                    web.AddPublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Publish);
+                    web.AddPublishingPage(page.PageName, page.PageLayoutName, page.Title, page.Content, page.Properties, page.Publish);
 
                     
                 }

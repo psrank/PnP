@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Xml;
 using Microsoft.SharePoint.Client.Publishing;
 using Microsoft.SharePoint.Client.Utilities;
 using Microsoft.SharePoint.Client.WebParts;
 using OfficeDevPnP.Core;
 using OfficeDevPnP.Core.Entities;
+using OfficeDevPnP.Core.Framework.Provisioning.ObjectHandlers;
 
 namespace Microsoft.SharePoint.Client
 {
@@ -954,7 +956,7 @@ namespace Microsoft.SharePoint.Client
         /// <param name="publish">Should the page be published or not?</param>
         /// <exception cref="System.ArgumentNullException">Thrown when key or pageName is a zero-length string or contains only white space</exception>
         /// <exception cref="System.ArgumentException">Thrown when key or pageName is null</exception>
-        public static void AddPublishingPage(this Web web, string pageName, string pageTemplateName, string title = null, string content = null, bool publish = false)
+        public static void AddPublishingPage(this Web web, string pageName, string pageTemplateName, string title = null, string content = null, Dictionary<string, string> properties = null,  bool publish = false)
         {
             if (string.IsNullOrEmpty(pageName))
             {
@@ -1000,12 +1002,25 @@ namespace Microsoft.SharePoint.Client
             if (content != null)
             {
                 pageItem["PublishingPageContent"] = content;
-                pageItem["MnS_NewsCategory"] = "22a142ba-0b1f-442b-bf0a-9cb6511b8813";//"Local News";
-                pageItem["MnS_NewsPublishLocation"] = "f6f02516-044e-4475-ac43-f32bbac034fc";//"Both";
-                pageItem["CO_NewsPriority"] = "0";
-                pageItem["PublishingPageImage"] = "0";
-                pageItem["PublishingRollupImage"] = "0";
             }
+
+            if (properties != null && properties.Any())
+            {
+                //Dictionary<string, string> transformedProperties = file.Properties.ToDictionary(property => property.Key, property => property.Value.ToParsedString());
+                foreach (var prop in properties)
+                {
+                    //if (prop.Key == "PublishingPageImage" || prop.Key == "PublishingRollupImage")
+                    //{
+                    //    pageItem[prop.Key] = prop.Value.ToParsedString();
+                    //}
+                    //else
+                    //{
+                    //    pageItem[prop.Key] = prop.Value;
+                    //}
+                    pageItem[prop.Key] = prop.Value;
+                }
+            }
+
             pageItem.Update();
 
             web.Context.Load(pageItem, p => p.File.CheckOutType);
