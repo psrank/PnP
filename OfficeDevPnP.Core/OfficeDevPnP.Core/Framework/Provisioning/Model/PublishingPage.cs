@@ -52,7 +52,7 @@ namespace OfficeDevPnP.Core.Framework.Provisioning.Model
                 this.WebParts.AddRange(webParts);
             }
 
-            if (_properties != null)
+            if (properties != null)
             {
                 foreach (var property in properties)
                 {
